@@ -1,0 +1,254 @@
+#
+# https://nbviewer.jupyter.org/github/BVLC/caffe/blob/master/examples/brewing-logreg.ipynb
+#
+name: "FallDet_bnn"
+layer {
+	name: "data"
+	#type: "Data"
+  type: "HDF5Data"
+	top: "data"
+	top: "label"
+	include {
+		phase: TRAIN
+	}
+#	data_param {
+#		source: "../train_lmdb"
+#		batch_size: 1
+#		backend: LMDB
+#	}
+  hdf5_data_param {
+    source: "../h5data/train.txt"
+    batch_size: 1
+  }
+}
+
+layer {
+	name: "data"
+	#type: "Data"
+  type: "HDF5Data"
+	top: "data"
+	top: "label"
+	include {
+		phase: TEST
+    stage: "val"
+	}
+#	data_param {
+#		source: "../val_lmdb"
+#		batch_size: 1
+#		backend: LMDB
+#	}
+  hdf5_data_param {
+    source: "../h5data/test.txt"
+    batch_size: 1
+  }
+}
+
+layer {
+  name: "data"
+  type: "HDF5Data"
+#  type: "Input"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+    not_stage: "val"
+  }
+  hdf5_data_param {
+    source: "../h5data/test.txt"
+    batch_size: 1
+  }
+#  input_param {
+#    shape {
+#      dim: 1
+#      dim: 1
+#      dim: 1
+#      dim: 9
+#    }
+#  }
+}
+
+#####################################
+# NETWORK 
+#####################################
+layer {
+	name: "drop0"
+	type: "Dropout"
+	bottom: "data"
+	top: "drop0"
+	dropout_param 
+	{
+		dropout_ratio: 0.2 
+	}
+}
+
+layer {
+	name: "bip1"
+	type: "BinaryInnerProduct"
+  #bottom: "data"
+	bottom: "drop0"
+	top: "bip1"
+	inner_product_param 
+	{
+		num_output: 32
+	}
+}
+
+layer {
+	name: "bn1"
+	type: "BatchNorm"
+	bottom: "bip1"
+	top: "bn1"
+}
+
+layer {
+  name: "qrelu1"
+  type: "QuantReLU"
+  bottom: "bn1"
+  top: "qrelu1"
+  quantize_param {
+    num_bit: 1
+  }
+}
+
+layer {
+	name: "drop1"
+	type: "Dropout"
+	bottom: "qrelu1"
+	top: "drop1"
+	dropout_param 
+	{
+		dropout_ratio: 0.5
+	}
+}
+
+layer {
+	name: "bip2"
+	type: "BinaryInnerProduct"
+	bottom: "drop1"
+	top: "bip2"
+	inner_product_param 
+	{
+		num_output: 2
+	}
+}
+
+# layer {
+# 	name: "bn2"
+# 	type: "BatchNorm"
+# 	bottom: "fc2"
+# 	top: "bn2"
+# }
+# layer {
+#   name: "qrelu2"
+#   type: "QuantReLU"
+#   bottom: "bn2"
+#   top: "qrelu2"
+#   quantize_param {
+#     num_bit: 1
+#   }
+# }
+# layer {
+# 	name: "drop2"
+# 	type: "Dropout"
+# 	bottom: "qrelu2"
+# 	top: "drop2"
+# 	dropout_param 
+# 	{
+# 		dropout_ratio: 0.5
+# 	}
+# }
+# layer {
+# 	name: "fc3"
+# 	type: "BinaryInnerProduct"
+# 	bottom: "drop2"
+# 	top: "fc3"
+# 	inner_product_param 
+# 	{
+# 		num_output: 64
+# 	}
+# }
+# layer {
+# 	name: "bn3"
+# 	type: "BatchNorm"
+# 	bottom: "fc3"
+# 	top: "bn3"
+# }
+# layer {
+#   name: "qrelu3"
+#   type: "QuantReLU"
+#   bottom: "bn3"
+#   top: "qrelu3"
+#   quantize_param {
+#     num_bit: 1
+#   }
+# }
+# layer {
+# 	name: "drop3"
+# 	type: "Dropout"
+# 	bottom: "qrelu3"
+# 	top: "drop3"
+# 	dropout_param 
+# 	{
+# 		dropout_ratio: 0.5
+# 	}
+# }
+
+# #layer {
+# #	name: "fc"
+# #	type: "BinaryInnerProduct"
+# #	bottom: "drop3"
+# #	top: "fc"
+# #	inner_product_param 
+# #	{
+# #		num_output: 1
+# #	}
+# #}
+# #layer {
+# #	name: "bn"
+# #	type: "BatchNorm"
+# #	bottom: "fc"
+# #	top: "bn"
+# #}
+# layer {
+#   name: "fc4"
+#   type: "BinaryInnerProduct"
+#   bottom: "drop3"
+#   top: "prob"
+#   inner_product_param {
+#     num_output: 2
+#     weight_filler {
+#       type: "constant"
+#       value: 0.0
+#     }
+#     bias_filler {
+#       type: "constant"
+#       value: 0.0
+#     }
+#   }
+# }
+
+#####################################
+# Loss
+#####################################
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "bip2"
+  bottom: "label"
+  top: "accuracy"
+  # exclude {
+  #   phase: TEST
+  #   not_stage: "val"
+  # }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "bip2"
+  bottom: "label"
+  top: "loss"
+  # exclude {
+  #   phase: TEST
+  #   not_stage: "val"
+  # }
+}
