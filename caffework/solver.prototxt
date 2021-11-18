@@ -1,0 +1,17 @@
+net: "cbsr.prototxt"
+test_state { stage: "val" }
+test_iter: 20                            # how many mini-batches to test in each validation phase
+test_interval: 100                       # how often do we call the test phase
+display: 20                              # how often do we print training loss
+lr_policy: "step"
+momentum: 0.8999999761581421
+weight_decay: 0.0005000000237487257
+stepsize: 10                             # how often do we step (should be called step_interval)
+snapshot_prefix: "train"
+solver_mode: CPU
+#solver_mode: GPU
+base_lr: 1e-2                            # base learning rate
+#base_lr: 0.0010000000474974513
+max_iter: 1000
+gamma: 0.0010000000474974513
+snapshot: 100

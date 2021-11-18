@@ -1,0 +1,14 @@
+#!/bin/sh
+rm *.caffemodel *.solverstate
+
+caffe.bin train -solver fall_solver.prototxt 2>&1 | tee log/fall.log
+#caffe train -gpu 0 -solver fall_solver.prototxt 2>&1 | tee log/fall.log
+
+parse_log.py --verbose  log/fall.log log/
+gnuplot -persist gnuplot_commands
+
+draw_net.py fall.prototxt fall_model.png
+
+#module load sensai
+lsc_ml_compl --cmd analyze --framework Caffe --network_file fall_deploy_2.prototxt --model_file train_iter_1000.caffemodel --device "Ultra Plus" --image_files falldata.npy --nnMode 1
+#zip lscml_proj.zip lscml_proj
