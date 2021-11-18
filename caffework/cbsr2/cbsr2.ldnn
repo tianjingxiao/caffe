@@ -1,0 +1,50 @@
+version: V2.1.0-Beta
+release: '2019-10-09'
+native_network: caffe
+device: Ultra Plus
+ip: Dual_Core_16ENGINE_IP
+framework: Caffe
+project_name: cbsr2
+model_file: C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/train_iter_1000.caffemodel
+model_file.rel: ..\train_iter_1000.caffemodel
+network_file: C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/cbsrdeploy.prototxt
+network_file.rel: ..\cbsrdeploy.prototxt
+image_files: []
+image_files.rel: []
+impl_options:
+  Impl0:
+    num_conv_eng: 1
+    ebr_blk_size: 16384
+    scratch_blk_size: 4096
+    num_ebr: 1
+    input_ebr:
+    - 0
+    output_ebr:
+    - 1
+    extmem_start_addr: 0
+    mean: 0
+    scale: 1.0
+    extmem_off: 0
+    enable_dualcore: 0
+    load_from_extmem: 0
+    store_to_extmem: 0
+    output_depth_range: ''
+    borrow_feature: 0
+    borrow_factor: 1
+    error_analysis: 0
+    analyze_process: true
+current_impl: Impl0
+scan_datalayer: false
+raw_input_files: ['C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/falldata.npy']
+raw_input_files.rel: [..\falldata.npy]
+project_dir: C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework
+hwcfg_file: cbsr2.yml
+out_file: cbsr2.lscml
+post_processing_str: ''
+nnMode: 1
+bnnSignMode: 1
+enable_hw_sim: true
+enable_fixed_sim: true
+enable_float_sim: true
+enable_analyze_debug: false
+raw_input: 1

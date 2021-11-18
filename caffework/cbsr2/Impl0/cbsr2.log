@@ -1,0 +1,106 @@
+INFO    : 
+LSC_ML_COMPL - A Compiler for Deep Neural Network Inference
+Copyright(c) 2017-2020 Lattice Semiconductor Corporation
+Version: V2.1.0-Beta
+Build: 2019-10-09
+
+
+INFO    : Started analysis of input network C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/cbsrdeploy.prototxt
+INFO    : Using weights in model file C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/train_iter_1000.caffemodel
+INFO    : Implementation Options
+INFO    :   framework : Caffe
+INFO    :   device : Ultra Plus
+INFO    :   nnMode : 1
+INFO    :   bnnSignMode : 1
+INFO    :   model_file : C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/train_iter_1000.caffemodel
+INFO    :   network_file : C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/cbsrdeploy.prototxt
+INFO    :   raw_input : 1
+INFO    :   hwcfg_yaml_file : b'C:\\Users\\paoli\\Dropbox\\Fall Detection and Classification\\caffework\\cbsr2\\Impl0\\cbsr2.yml'
+INFO    :   lsml_out_file : b'C:\\Users\\paoli\\Dropbox\\Fall Detection and Classification\\caffework\\cbsr2\\Impl0\\cbsr2.lscml'
+INFO    :   mean : 0
+INFO    :   scale : 1.0
+INFO    :   sample_rate : 8000
+INFO    :   down_sampling : 1
+INFO    :   num_conv_eng : 1
+INFO    :   num_ebr : 1
+INFO    :   input_ebr : [0]
+INFO    :   output_ebr : [1]
+INFO    :   collapse_layer : 0
+INFO    :   TF_compare_input : 
+INFO    :   ebr_blk_size : 16384
+INFO    :   scratch_blk_size : 4096
+INFO    :   extmem_start_addr : 0
+INFO    :   enable_hw_sim : True
+INFO    :   enable_float_sim : True
+INFO    :   enable_fixed_sim : True
+INFO    :   enable_dualcore : 0
+INFO    :   extmem_off : 0
+INFO    :   load_from_extmem : 0
+INFO    :   store_to_extmem : 0
+INFO    :   borrow_feature : 0
+INFO    :   borrow_factor : 1
+INFO    :   error_analysis : 0
+INFO    :   stored_frac : {}
+INFO    :   dfrac_forced : {}
+INFO    :   output_depth_range : 
+INFO    : Result and log of current implementation 'Impl0' can be found at C:\Users\paoli\Dropbox\Fall Detection and Classification\caffework\cbsr2\Impl0
+WARNING : Building network Model ...
+INFO    : Network: 
+INFO    : Input: 
+INFO    : Analyzing model with data C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/falldata.npy
+INFO    : blob(data): 1x1x9 -> 1 mblks
+INFO    : blob(conv1): 16x1x5 -> 1 mblks
+INFO    : blob(conv2): 32x1x3 -> 1 mblks
+INFO    : blob(conv3): 64x1x3 -> 1 mblks
+INFO    : blob(prob): 2 -> 1 mblks
+INFO    : Succesfully completed input network analysis. This network/configuration can be compiled to generate firmware
+INFO    : 
+LSC_ML_COMPL - A Compiler for Deep Neural Network Inference
+Copyright(c) 2017-2020 Lattice Semiconductor Corporation
+Version: V2.1.0-Beta
+Build: 2019-10-09
+
+
+INFO    : Started compilation of firmware for ML engines
+INFO    : Implementation Options
+INFO    :   framework : Caffe
+INFO    :   device : Ultra Plus
+INFO    :   nnMode : 1
+INFO    :   bnnSignMode : 1
+INFO    :   model_file : C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/train_iter_1000.caffemodel
+INFO    :   network_file : C:/Users/paoli/Dropbox/Fall Detection and Classification/caffework/cbsrdeploy.prototxt
+INFO    :   raw_input : 1
+INFO    :   hwcfg_yaml_file : b'C:\\Users\\paoli\\Dropbox\\Fall Detection and Classification\\caffework\\cbsr2\\Impl0\\cbsr2.yml'
+INFO    :   lsml_out_file : b'C:\\Users\\paoli\\Dropbox\\Fall Detection and Classification\\caffework\\cbsr2\\Impl0\\cbsr2.lscml'
+INFO    :   mean : 0
+INFO    :   scale : 1.0
+INFO    :   sample_rate : 8000
+INFO    :   down_sampling : 1
+INFO    :   num_conv_eng : 1
+INFO    :   num_ebr : 1
+INFO    :   input_ebr : [0]
+INFO    :   output_ebr : [1]
+INFO    :   collapse_layer : 0
+INFO    :   TF_compare_input : 
+INFO    :   ebr_blk_size : 16384
+INFO    :   scratch_blk_size : 4096
+INFO    :   extmem_start_addr : 0
+INFO    :   enable_hw_sim : True
+INFO    :   enable_float_sim : True
+INFO    :   enable_fixed_sim : True
+INFO    :   enable_dualcore : 0
+INFO    :   extmem_off : 0
+INFO    :   load_from_extmem : 0
+INFO    :   store_to_extmem : 0
+INFO    :   borrow_feature : 0
+INFO    :   borrow_factor : 1
+INFO    :   error_analysis : 0
+INFO    :   stored_frac : {}
+INFO    :   dfrac_forced : {}
+INFO    :   output_depth_range : 
+INFO    : Using configuration file C:\Users\paoli\Dropbox\Fall Detection and Classification\caffework\cbsr2\Impl0\cbsr2.yml. Rerun network Analyze step if data has changed
+INFO    : Successfully Scheduled network layer 'data' of type Input
+INFO    : has bias
+WARNING : Encountered unexpected internal error.
+WARNING : <class 'AssertionError'>
+INFO    : Process Finished
